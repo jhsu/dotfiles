@@ -1,6 +1,6 @@
 # Dotfiles
 
-Because I like things my way.
+Make anyplace feel like :house:.
 
 ```bash
 rake setup
