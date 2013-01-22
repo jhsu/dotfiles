@@ -1,0 +1,2 @@
+#!/usr/bin/env sh
+curl -s --connect-timeout 2 http://ws.audioscrobbler.com/1.0/user/jhsu/recenttracks.rss | ack '^\s+<title'  | sed -e :a -e 's/<[^>]*>//g;/</N;//ba' | sed 's/^[ \t]*//;s/[ \t]*$//'

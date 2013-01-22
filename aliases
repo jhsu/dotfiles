@@ -1,0 +1,49 @@
+# ls
+alias ls='ls --format=vertical --color=auto'
+alias la='ls -A'
+alias ll='ls -l'
+alias lsp='ls++'
+
+case `uname` in
+Linux)
+  alias rtfn="elinks http://www.archlinux.org/feeds/news/" # latest Archlinux
+  alias pbcopy='xsel -b' # clipboard
+;;
+Darwin)
+  alias ls='ls -FG'
+;;
+esac
+
+# Ruby Bundler
+alias be='bundle exec'
+# rbenv
+alias rv="rbenv"
+
+alias less='less -r'
+alias ..='cd ..'
+
+# tmux
+function mux {
+  if tmux list-sessions | grep main ; then
+    tmux attach -t main
+  else
+    tmux new -s main
+  fi
+}
+
+# clock
+alias clock='tty-clock -stc -C 6'
+
+# Git
+# alias vimdiff='vim -d'
+alias gst='git status -sb'
+alias gsg='git sh'
+alias gb='git branch'
+alias gba='git branch -a'
+alias grm="git status | grep deleted | awk '{print \$3}' | xargs git rm"
+# alias push?='git cherry -v origin'
+alias gl='git log --graph --pretty=format:"%Cred%h%Creset . %an: %""s %Cgreen(%cr)%Creset" --abbrev-commit --date=relative'
+alias push="git push"
+
+# define
+dict() { curl -s dict://dict.org/d:"$1" | perl -ne 's/\r//; last if /^\.$/; print if /^151/../^250/'; }

@@ -1,0 +1,39 @@
+startup_message off
+shell -${SHELL}
+
+setenv DISPLAY ":0.0"
+escape ^Bb
+# escape \140\140s
+
+term xterm-256color
+termcapinfo xterm-256color ti@:te@
+termcapinfo xterm-256color 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+
+attrcolor b ".I"
+# tell screen how to set colors. AB = background, AF=foreground
+# erase background with current bg color
+defbce "on" 
+altscreen on
+
+# caption always "%?%{+b kw}%-Lw%?%{yK}%n*%f %t%?(%u)%?%?%{wk}%+Lw%? %{gk}%=%c %{yk}%d/%M/%Y"
+# hardstatus alwayslastline
+caption always '%{= kG}%-Lw%{= kW}%50> %n*%f %t%{= kG}%+Lw%< %{= kG}%-=%D %m/%d/%y | %2` %C:%s %A | %1`%{-}'
+
+backtick 2 60 60 /home/jshsu/bin/get_uptime
+
+# bind ' ' window list -b
+
+screen -t irssi -h 500 0 irssi
+screen -t bash $SHELL
+screen -t bash $SHELL
+select 0
+
+bind ^k
+bind ^\
+
+bind Q quit
+bind K kill
+bind } history
+
+autodetach on
+defscrollback 5000

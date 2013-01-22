@@ -1,0 +1,86 @@
+# Conky, a system monitor, based on torsmo
+#
+# Any original torsmo code is licensed under the BSD license
+#
+# All code written since the fork of torsmo is licensed under the GPL
+#
+# Please see COPYING for details
+#
+# Copyright (c) 2004, Hannu Saransaari and Lauri Hakkarainen
+# Copyright (c) 2005-2010 Brenden Matthews, Philip Kovacs, et. al. (see AUTHORS)
+# All rights reserved.
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+update_interval 1
+net_avg_samples 2
+cpu_avg_samples 2
+use_xft yes
+xftfont Ubuntu Mono:size=12
+gap_x 5
+gap_y 45
+maximum_width 220
+
+background no
+alignment top_left
+
+draw_shades no
+# default_shade_color b0b0b0
+
+draw_borders no
+border_width 1
+draw_graph_borders yes
+
+show_graph_scale no
+show_graph_range no
+
+default_color white
+draw_outline no
+default_outline_color white
+minimum_size 5 5
+no_buffers yes
+out_to_console no
+out_to_stderr no
+extra_newline no
+own_window no
+own_window_class Conky
+own_window_type desktop
+stippled_borders 0
+uppercase no
+use_spacer none
+
+color1 666666 # Gray
+color2 006FC0 # Blue
+color3 8AD749 # Green
+color4 EECE01 # Yellow
+color5 F8981F # Orange
+color6 F80E27 # Red
+
+TEXT
+${image ~/.icons/conky/Television-Alt.png -s 32x32}
+
+${color}CPU ${if_match ${cpu} >0}${color2}${else}${color1}${endif}O${if_match ${cpu} >10}${color2}${else}${color1}${endif}O${if_match ${cpu} >20}${color3}${else}${color1}${endif}O${if_match ${cpu} >30}${color3}${else}${color1}${endif}O${if_match ${cpu} >40}${color4}${else}${color1}${endif}O${if_match ${cpu} >50}${color4}${else}${color1}${endif}O${if_match ${cpu} >60}${color5}${else}${color1}${endif}O${if_match ${cpu} >70}${color5}${else}${color1}${endif}O${if_match ${cpu} >80}${color6}${else}${color1}${endif}O${if_match ${cpu} >90}${color6}${else}${color1}${endif}O  ${color}${cpu cpu}% ${color} $alignr$mem 
+${color}RAM ${if_match ${memperc} >0}${color2}${else}${color1}${endif}O${if_match ${memperc} >10}${color2}${else}${color1}${endif}O${if_match ${memperc} >20}${color3}${else}${color1}${endif}O${if_match ${memperc} >30}${color3}${else}${color1}${endif}O${if_match ${memperc} >40}${color4}${else}${color1}${endif}O${if_match ${memperc} >50}${color4}${else}${color1}${endif}O${if_match ${memperc} >60}${color5}${else}${color1}${endif}O${if_match ${memperc} >70}${color5}${else}${color1}${endif}O${if_match ${memperc} >80}${color6}${else}${color1}${endif}O${if_match ${memperc} >90}${color6}${else}${color1}${endif}O ${color}${memperc}% $alignr$memmax
+$hr
+${color grey}Frequency (in GHz):$color $freq_g
+${color grey}Uptime:$color $uptime
+# ${color grey}File systems:
+#  / $color${fs_used /}/${fs_size /} ${fs_bar 6 /}
+${color grey}Networking:
+${color}Up: ${color2}${upspeed eth0} ${color} - Down: ${color3}${downspeed eth0}
+$hr
+
+${image ~/.icons/conky/Media-Player.png -p 0,170 -s 32x32}
+
+${color}${execi 10 ~/bin/recentlastfm}
+# ${image ~/.icons/recentalbum.png -s 100x100}

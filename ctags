@@ -1,0 +1,5 @@
+--exclude=.git \
+--exclude=tags \
+--exclude=logs \
+--exclude=doc \
+-R
