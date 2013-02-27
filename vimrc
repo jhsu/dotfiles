@@ -49,6 +49,7 @@ Bundle 'thermometer'
 "" git
 Bundle 'tpope/vim-fugitive'
 Bundle 'Gundo'
+Bundle 'airblade/vim-gitgutter'
 
 Bundle 'taglist-plus'
 Bundle 'SuperTab-continued.'
@@ -133,6 +134,7 @@ augroup myfiletypes
   autocmd FileType html,css set ai sw=2 sts=2 ts=2 ofu=syntaxcomplete#Complete
   autocmd FileType css set  omnifunc=csscomplete#Complete
   autocmd FileType php set ai sw=2 sts=2 ts=2
+  autocmd FileType go  set noexpandtab shiftwidth=0 tabstop=8 softtabstop=8 nolist
 augroup END
 
 augroup json_autocmd
@@ -153,7 +155,8 @@ augroup END
 " This beauty remembers where you were the last time you edited the file, and returns to the same position.
 au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
 
-au BufNewFile,BufReadPost *.coffee setl foldmethod=indent
+au BufNewFile,BufReadPost *.go set filetype=go
+au BufNewFile,BufReadPost *.coffee setl foldmethod=indent ft=coffee
 au BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
 
 " KEYBOARD BINDINGS
@@ -275,6 +278,7 @@ cabbrev ack Ack
 " equalalways behavior to be triggered the next time CommandT is used.
 " This is likely a bludgeon to solve some other issue, but it works
 map <leader>t :CommandT<cr>
+nmap ; :CommandTBuffer<CR>
 set noequalalways
 let g:CommandTMaxHeight=12
 set wildignore+=doc/**,tmp/**
