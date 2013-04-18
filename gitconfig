@@ -61,6 +61,6 @@
 [diff]
   tool = vimdiff
 [push]
-  default = tracking
+  default = current # only push to branch of same name
 [difftool]
   prompt = false

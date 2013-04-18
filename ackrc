@@ -2,7 +2,7 @@
 --ignore-dir=tmp
 --ignore-dir=coverage
 --ignore-dir=doc
---type-add=ruby=.haml,.rake,.erb
+--type-add=ruby=.haml,.rake,.erb,.ru
 --type-add=css=.less,.sass,.scss
 --type-add=js=.coffee
 --nogroup
