@@ -1,12 +1,11 @@
 set t_Co=256
 set nocompatible              " We're running Vim, not Vi!
-filetype off
-if has("autocmd")
-  filetype plugin indent on
-endif
 syntax on                     " Enable syntax highlighting
+filetype plugin indent on
 
 set background=dark
+
+" Vundle packages
 
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
@@ -26,12 +25,14 @@ Bundle 'rvm.vim'
 
 " Themes
 Bundle 'jhsu/tomorrow-vim'
+Bundle 'effkay/argonaut.vim'
 
 " Syntax
 Bundle 'JSON.vim'
 Bundle 'tpope/vim-rails'
 Bundle 'Rubytest.vim'
 Bundle 'henrik/vim-ruby-runner'
+Bundle 'vim-ruby/vim-ruby'
 Bundle 'Handlebars'
 Bundle 'go.vim'
 Bundle 'vim-coffee-script'
@@ -70,16 +71,20 @@ Bundle 'unimpaired.vim'
 
 """"""""""""""""""""""""""""""""""""""
 
-" filetype plugin indent on
-
 set lazyredraw
 
+" Mouse control
+set ttymouse=xterm2
+set mouse=a
+
+" Tabs / Spacing
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 set expandtab
 set autoindent
 set listchars=tab:▸\ ,eol:¬,trail:☠
+set list
 
 set encoding=utf-8
 set scrolloff=3
@@ -110,54 +115,48 @@ set formatoptions=qrn1
 set colorcolumn=80
 
 set title
+set guifont="Inconsolata 14"
 
 nnoremap ; :
 
-set guifont="Inconsolata 14"
 set viminfo^=!
-set clipboard+=unnamed
+set clipboard=unnamed
 
-set history=1000      " have fifty lines of command-line (etc) history:
+set history=50        " have fifty lines of command-line (etc) history:
 set nobackup          " Don't leave backup files (swp is good)
-" set complete=.,w,b,t  " Word completion rules
+set complete=.,w,b,t  " Word completion rules
 
 set noruler
 set number
 
+" MatchIt - included n vim
 runtime! macros/matchit.vim   " Load matchit (% to bounce from do to end, etc.)
 let &guicursor = &guicursor . ",a:blinkon0" " stops blink wake up
 set guicursor=
 
+""""""""""""""""""""""""""""""""""""""
+
+" FileType
+" most this stuff should be moved to ~/.vim/ftplugin/<filetype>.vim
 augroup myfiletypes
   autocmd FileType ruby,eruby,yaml,ru set ai sw=2 sts=2 ts=2 ofu=syntaxcomplete#Complete
   autocmd FileType python set ts=8 expandtab shiftwidth=4 softtabstop=4 ofu=syntaxcomplete#Complete
   autocmd FileType html,css set ai sw=2 sts=2 ts=2 ofu=syntaxcomplete#Complete
   autocmd FileType css set  omnifunc=csscomplete#Complete
   autocmd FileType php set ai sw=2 sts=2 ts=2
-  autocmd FileType go  set noexpandtab shiftwidth=0 tabstop=8 softtabstop=8 nolist
+  autocmd FileType go  setl noexpandtab shiftwidth=0 tabstop=8 softtabstop=8 nolist
+  autocmd FileType coffee setl foldmethod=indent shiftwidth=2 expandtab
+  autocmd FileType json setlocal autoindent formatoptions=tcq2l textwidth=78 shiftwidth=2 softtabstop=2 tabstop=8 expandtab foldmethod=syntax
 augroup END
 
-augroup json_autocmd
-  autocmd!
-  autocmd FileType json set autoindent
-  autocmd FileType json set formatoptions=tcq2l
-  autocmd FileType json set textwidth=78 shiftwidth=2
-  autocmd FileType json set softtabstop=2 tabstop=8
-  autocmd FileType json set expandtab
-  autocmd FileType json set foldmethod=syntax
-augroup END
+autocmd BufNewFile,BufReadPost Vagrantfile setlocal filetype=ruby
+autocmd BufNewFile,BufReadPost *.go setlocal filetype=go
+autocmd BufNewFile,BufReadPost *.coffee setlocal filetype=coffee
 
-" if !exists("autocommands_loaded")
-"   let autocommands_loaded = 1
-"   autocmd BufRead,BufNewFile,FileReadPost *.py source ~/.vim/python
-" endif
+""""""""""""""""""""""""""""""""""""""
 
 " This beauty remembers where you were the last time you edited the file, and returns to the same position.
 au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
-
-au BufNewFile,BufReadPost *.go set filetype=go
-au BufNewFile,BufReadPost *.coffee setl foldmethod=indent ft=coffee
-au BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
 
 " KEYBOARD BINDINGS
 
