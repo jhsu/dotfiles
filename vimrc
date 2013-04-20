@@ -73,9 +73,9 @@ Bundle 'unimpaired.vim'
 
 set lazyredraw
 
-" Mouse control
+" Mouse controls (iterm2)
 set ttymouse=xterm2
-set mouse=a
+set mouse=i " only allow mouse in insert mode to allow command+click
 
 " Tabs / Spacing
 set tabstop=2

@@ -1,8 +1,12 @@
---ignore-dir=db
+--nogroup
+--known-types
+--ignore-file=ext:log
+--ignore-file=ext:svg
 --ignore-dir=tmp
 --ignore-dir=coverage
 --ignore-dir=doc
---type-add=ruby=.haml,.rake,.erb,.ru
+--type-add=ruby:ext:rake,ext:erb,ext:ru
+--type-add=sass:ext:scss,ext:sass
+--type-set=haml=ext:haml
 --type-add=css=.less,.sass,.scss
---type-add=js=.coffee
---nogroup
+--type-add=coffee=ext:coffee
