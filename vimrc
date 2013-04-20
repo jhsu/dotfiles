@@ -149,7 +149,7 @@ augroup myfiletypes
   autocmd FileType json setlocal autoindent formatoptions=tcq2l textwidth=78 shiftwidth=2 softtabstop=2 tabstop=8 expandtab foldmethod=syntax
 augroup END
 
-autocmd BufNewFile,BufReadPost Vagrantfile setlocal filetype=ruby
+autocmd BufNewFile,BufReadPost Vagrantfile,Guardfile setlocal filetype=ruby
 autocmd BufNewFile,BufReadPost *.go setlocal filetype=go
 autocmd BufNewFile,BufReadPost *.coffee setlocal filetype=coffee
 
