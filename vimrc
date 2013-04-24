@@ -64,7 +64,7 @@ Bundle 'mattn/webapi-vim'
 Bundle 'mattn/gist-vim'
 
 " navigation
-Bundle 'wincent/Command-T'
+Bundle 'ctrlp.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'netrw.vim'
 Bundle 'unimpaired.vim'
@@ -244,14 +244,6 @@ map <leader>c :ccl<cr>
 
 " NERD_tree
 map <silent> <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
-" map <silent> <leader>d :execute 'e '. getcwd()<CR>
-
-let NERDTreeHijackNetrw=1
-
-" netrw
-" let g:netrw_browse_split = 4
-" let g:netrw_liststyle=3
-" let g:netrw_altv = 1
 
 " Git
 let g:git_branch_status_head_current=1
@@ -272,15 +264,12 @@ let clj_highlight_builtins = 1
 let g:ackprg="ack -H --nocolor --nogroup --column"
 cabbrev ack Ack
 
-"CommandT
-" Without setting this, ZoomWin restores windows in a way that causes
-" equalalways behavior to be triggered the next time CommandT is used.
-" This is likely a bludgeon to solve some other issue, but it works
-map <leader>t :CommandT<cr>
-nmap ; :CommandTBuffer<CR>
+"Ctrp
+map <leader>t :CtrlP<cr>
+nmap ; :CtrlPBuffer<CR>
+set wildignore+=doc/**,tmp/**,
+
 set noequalalways
-let g:CommandTMaxHeight=12
-set wildignore+=doc/**,tmp/**
 
 " Gitv
 nmap <leader>gv :Gitv --all<cr>
@@ -295,26 +284,12 @@ nnoremap <F5> :GundoToggle<CR>
 " Vim-powerline
 let g:Powerline_symbols = 'fancy'
 
-" FuzzyFinder TextMate
-" nnoremap <silent> <C-f>p     :FufFile<CR>
-" map <leader>t :FufCoverageFile<CR>
-" nnoremap <silent> <leader>f :FufCoverageFile<CR>
-let g:fuzzy_ignore="*.log,*.swp,*.db,*.sql,*.psql"
-let g:fuzzy_matching_limit=50
-let g:fuzzy_ceiling = 20000
-
 " RubyTest
 let g:rubytest_in_quickfix = 1
 let g:rubytest_cmd_test = "testdrb %p"
 let g:rubytest_cmd_testcase = "testdrb %p -n '/%c/'"
 map <Leader>\ <Plug>RubyTestRun<cr>
 map <leader>r <Plug>RubyFileRun<cr>
-
-" Command-T
-let g:CommandTAlwaysShowDotFiles = 1
-
-" BufTabs
-" let g:buftabs_in_statusline = 1
 
 " Syntastic
 let g:syntastic_auto_loc_list=1 " auto open/close location-list
