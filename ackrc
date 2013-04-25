@@ -1,12 +1,16 @@
 --nogroup
 --known-types
---ignore-file=ext:log
---ignore-file=ext:svg
+--ignore-file=ext:log,svg
 --ignore-dir=tmp
 --ignore-dir=coverage
 --ignore-dir=doc
---type-add=ruby:ext:rake,ext:erb,ext:ru
---type-add=sass:ext:scss,ext:sass
---type-set=haml=ext:haml
---type-add=css=.less,.sass,.scss
---type-add=coffee=ext:coffee
+--type-add
+  ruby:ext:ru
+--type-add
+  ruby:is:Gemfile
+--type-add
+  sass:ext:scss,sass,sass
+--type-set
+  haml:ext:haml
+--type-add
+  coffee:ext:coffee
