@@ -3,6 +3,8 @@ set nocompatible              " We're running Vim, not Vi!
 syntax on                     " Enable syntax highlighting
 filetype plugin indent on
 
+set shell=$SHELL\ -l " load login shell for things like chruby
+
 set background=dark
 
 " Vundle packages
@@ -17,7 +19,8 @@ Bundle 'Align'
 
 Bundle 'scrooloose/syntastic'
 Bundle 'rbgrouleff/bclose.vim'
-Bundle 'searchfold.vim'
+
+Bundle 'Buffersaurus'
 
 Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 
