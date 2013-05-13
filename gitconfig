@@ -1,66 +1,75 @@
 [user]
-  name = Joseph Hsu
-  email = jhsu.x1@gmail.com
+	name = Joseph Hsu
+	email = jhsu.x1@gmail.com
 [github]
-  user = jhsu
+	user = jhsu
 [apply]
-  whitespace = fix
+	whitespace = fix
 [color]
-  branch = auto
-  diff = auto
-  status = auto
+	branch = auto
+	diff = auto
+	status = auto
 [color "branch"]
-  current = yellow reverse
-  local = yellow
-  remote = green
+	current = yellow reverse
+	local = yellow
+	remote = green
 [color "diff"]
-  meta = yellow bold
-  frag = magenta bold
-  old = red bold
-  new = green bold
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
 [color "status"]
-  added = yellow
-  changed = green
-  untracked = cyan
+	added = yellow
+	changed = green
+	untracked = cyan
 [alias]
-  st = status
-  sh = status --short
-  diff = diff -b
-  ci = commit
-  br = branch
-  co = checkout
-  df = diff
-  lg = log -p
-  pt = push -u
-  who = shortlog -s --
-  lc = log ORIG_HEAD.. --stat --no-merges
-  llog = log --date=local
-  gitkconflict = !gitk --left-right HEAD...MERGE_HEAD
-  edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim `f`"
-  add-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
-  springclean = "!git remote prune origin && git gc"
-  k = !gitk
-  cleanse=clean -d -f
-  pa = add --patch
-  addp = !git add $_
-  join = merge --no-ff --edit
-  aliases = !git config --get-regexp 'alias.*'|colrm 1 6|sed 's/[ ]/ = /'
-  up = !sh -c 'git pull --rebase --prune ' # && git log --pretty=format:\"%Cred%ae %Creset- %C(yellow)%s %Creset(%ar)\" HEAD@{1}..'
-  removed = !sh -c 'git log -1 -p | grep "^- " | wc -l'
-  added = !sh -c 'git log -1 -p | grep "^+ " | wc -l'
-  human = name-rev --name-only --refs=refs/heads/*
+	st = status
+	sh = status --short
+	diff = diff -b
+	ci = commit
+	br = branch
+	co = checkout
+	df = diff
+	lg = log -p
+	pt = push -u
+	who = shortlog -s --
+	lc = log ORIG_HEAD.. --stat --no-merges
+	llog = log --date=local
+	gitkconflict = !gitk --left-right HEAD...MERGE_HEAD
+	edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim `f`"
+	add-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
+	springclean = "!git remote prune origin && git gc"
+	k = !gitk
+	cleanse=clean -d -f
+	pa = add --patch
+	addp = !git add $_
+	join = merge --no-ff --edit
+	aliases = !git config --get-regexp 'alias.*'|colrm 1 6|sed 's/[ ]/ = /'
+	up = !sh -c 'git pull --rebase --prune ' # && git log --pretty=format:\"%Cred%ae %Creset- %C(yellow)%s %Creset(%ar)\" HEAD@{1}..'
+	removed = !sh -c 'git log -1 -p | grep "^- " | wc -l'
+	added = !sh -c 'git log -1 -p | grep "^+ " | wc -l'
+	human = name-rev --name-only --refs=refs/heads/*
 [core]
-  excludesfile = /home/jshsu/.gitignore
-  editor = vim
+	excludesfile = /home/jshsu/.gitignore
+	editor = vim
 [pack]
-  threads = 0
+	threads = 0
 [remote "origin"]
-  push = HEAD
+	push = HEAD
 [branch]
-  autosetupmerge = true
+	autosetupmerge = true
 [diff]
-  tool = vimdiff
+	tool = Kaleidoscope
 [push]
-  default = current # only push to branch of same name
+	default = current # only push to branch of same name
 [difftool]
-  prompt = false
+	prompt = false
+[difftool "Kaleidoscope"]
+	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+[mergetool "Kaleidoscope"]
+	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+	trustExitCode = true
+[mergetool]
+	prompt = false
+[merge]
+	tool = Kaleidoscope
