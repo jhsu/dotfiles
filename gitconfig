@@ -49,6 +49,7 @@
 	removed = !sh -c 'git log -1 -p | grep "^- " | wc -l'
 	added = !sh -c 'git log -1 -p | grep "^+ " | wc -l'
 	human = name-rev --name-only --refs=refs/heads/*
+	edit = !vim $(git status | grep modified | awk '{printf(\"%s \", $3)}' )
 [core]
 	excludesfile = /home/jshsu/.gitignore
 	editor = vim
