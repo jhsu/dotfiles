@@ -279,7 +279,7 @@ cabbrev ack Ack
 
 "Ctrp
 " map <leader>t :CtrlP<cr>
-map <leader>t :CtrlPMixed<cr>
+map <leader>t :CtrlP<cr>
 let g:ctrlp_match_window_reversed=0
 let g:ctrlp_match_window_bottom=1
 let g:ctrlp_map = ''
