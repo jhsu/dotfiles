@@ -1,7 +1,6 @@
 set t_Co=256
 set nocompatible              " We're running Vim, not Vi!
-syntax on                     " Enable syntax highlighting
-filetype plugin indent on
+filetype off
 
 set shell=$SHELL\ -l " load login shell for things like chruby
 
@@ -43,6 +42,10 @@ Bundle 'coffee.vim'
 Bundle 'Markdown'
 Bundle 'jelera/vim-javascript-syntax'
 
+" JST syntax
+Bundle 'pangloss/vim-javascript'
+Bundle 'briancollins/vim-jst'
+
 Bundle 'ack.vim'
 Bundle 'surround.vim'
 Bundle 'bogado/file-line'
@@ -72,7 +75,14 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'netrw.vim'
 Bundle 'unimpaired.vim'
 
+" unite
+" # http://bling.github.io/blog/2013/06/02/unite-dot-vim-the-plugin-you-didnt-know-you-need/
+" Bundle 'unite.vim'
+
 """"""""""""""""""""""""""""""""""""""
+
+filetype plugin indent on
+syntax enable                     " Enable syntax highlighting
 
 set lazyredraw
 
@@ -142,7 +152,7 @@ set guicursor=
 " FileType
 " most this stuff should be moved to ~/.vim/ftplugin/<filetype>.vim
 augroup myfiletypes
-  autocmd FileType ruby,eruby,yaml,ru set ai sw=2 sts=2 ts=2 ofu=syntaxcomplete#Complete
+  autocmd FileType ruby,eruby,yaml,ru,rabl set ai sw=2 sts=2 ts=2 ofu=syntaxcomplete#Complete
   autocmd FileType python set ts=8 expandtab shiftwidth=4 softtabstop=4 ofu=syntaxcomplete#Complete
   autocmd FileType html,css set ai sw=2 sts=2 ts=2 ofu=syntaxcomplete#Complete
   autocmd FileType css set  omnifunc=csscomplete#Complete
@@ -152,7 +162,7 @@ augroup myfiletypes
   autocmd FileType json setlocal autoindent formatoptions=tcq2l textwidth=78 shiftwidth=2 softtabstop=2 tabstop=8 expandtab foldmethod=syntax
 augroup END
 
-autocmd BufNewFile,BufReadPost Vagrantfile,Guardfile setlocal filetype=ruby
+autocmd BufNewFile,BufReadPost Vagrantfile,Guardfile,*.rabl setlocal filetype=ruby
 autocmd BufNewFile,BufReadPost *.go setlocal filetype=go
 autocmd BufNewFile,BufReadPost *.coffee setlocal filetype=coffee
 
