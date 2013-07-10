@@ -16,6 +16,10 @@ Bundle 'gmarik/vundle'
 Bundle 'L9'
 Bundle 'Align'
 
+" requires https://github.com/Shougo/vimproc.vim manual install
+Bundle 'Shougo/vimproc.vim'
+Bundle 'Shougo/unite.vim'
+
 Bundle 'scrooloose/syntastic'
 Bundle 'rbgrouleff/bclose.vim'
 
@@ -70,7 +74,6 @@ Bundle 'mattn/webapi-vim'
 Bundle 'mattn/gist-vim'
 
 " navigation
-Bundle 'ctrlp.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'netrw.vim'
 Bundle 'unimpaired.vim'
@@ -96,8 +99,11 @@ set shiftwidth=2
 set softtabstop=2
 set expandtab
 set autoindent
-set listchars=tab:▸\ ,eol:¬,trail:☠
+" set listchars=trail:~,tab:\|
+set listchars=tab:\▸\ ,trail:·
 set list
+
+set autoread
 
 set encoding=utf-8
 set scrolloff=3
@@ -151,16 +157,16 @@ set guicursor=
 
 " FileType
 " most this stuff should be moved to ~/.vim/ftplugin/<filetype>.vim
-augroup myfiletypes
-  autocmd FileType ruby,eruby,yaml,ru,rabl set ai sw=2 sts=2 ts=2 ofu=syntaxcomplete#Complete
-  autocmd FileType python set ts=8 expandtab shiftwidth=4 softtabstop=4 ofu=syntaxcomplete#Complete
-  autocmd FileType html,css set ai sw=2 sts=2 ts=2 ofu=syntaxcomplete#Complete
-  autocmd FileType css set  omnifunc=csscomplete#Complete
-  autocmd FileType php set ai sw=2 sts=2 ts=2
-  autocmd FileType go  setl noexpandtab shiftwidth=0 tabstop=8 softtabstop=8 nolist
-  autocmd FileType coffee setl foldmethod=indent shiftwidth=2 expandtab
-  autocmd FileType json setlocal autoindent formatoptions=tcq2l textwidth=78 shiftwidth=2 softtabstop=2 tabstop=8 expandtab foldmethod=syntax
-augroup END
+" augroup myfiletypes
+"   autocmd FileType ruby,eruby,yaml,ru,rabl set ai sw=2 sts=2 ts=2 ofu=syntaxcomplete#Complete
+"   autocmd FileType python set ts=8 expandtab shiftwidth=4 softtabstop=4 ofu=syntaxcomplete#Complete
+"   autocmd FileType html,css set ai sw=2 sts=2 ts=2 ofu=syntaxcomplete#Complete
+"   autocmd FileType css set  omnifunc=csscomplete#Complete
+"   autocmd FileType php set ai sw=2 sts=2 ts=2
+"   autocmd FileType go  setl noexpandtab shiftwidth=0 tabstop=8 softtabstop=8 nolist
+"   autocmd FileType coffee setl foldmethod=indent shiftwidth=2 expandtab
+"   autocmd FileType json setlocal autoindent formatoptions=tcq2l textwidth=78 shiftwidth=2 softtabstop=2 tabstop=8 expandtab foldmethod=syntax
+" augroup END
 
 autocmd BufNewFile,BufReadPost Vagrantfile,Guardfile,*.rabl setlocal filetype=ruby
 autocmd BufNewFile,BufReadPost *.go setlocal filetype=go
@@ -228,7 +234,6 @@ set showbreak=\\          " show line break
 " wrap in insert mode:
 set whichwrap=h,l,~,[,]
 
-" use <Ctrl>+N/<Ctrl>+P to cycle through files:
 nnoremap <C-N> :bn<CR>
 nnoremap <C-P> :bp<CR>
 inoremap jj <Esc>
@@ -265,10 +270,10 @@ let g:git_branch_status_nogit=""
 let g:git_branch_status_text="text"
 
 " Ruby
-command! FR set filetype=ruby
-if has("autocmd")
-  au FileType ruby map  <buffer> <C-e>   :RunRuby<CR>
-endif
+" command! FR set filetype=ruby
+" if has("autocmd")
+"   au FileType ruby map  <buffer> <C-e>   :RunRuby<CR>
+" endif
 
 " VimClojure
 let clj_highlight_builtins = 1
@@ -277,14 +282,11 @@ let clj_highlight_builtins = 1
 let g:ackprg="ack -H --nocolor --nogroup --column"
 cabbrev ack Ack
 
-"Ctrp
-" map <leader>t :CtrlP<cr>
-map <leader>t :CtrlP<cr>
-let g:ctrlp_match_window_reversed=0
-let g:ctrlp_match_window_bottom=1
-let g:ctrlp_map = ''
+" Unite.vim
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+nnoremap <C-p> :<C-u>Unite -start-insert file_rec<CR>
+nmap ; :Unite buffer<CR>
 
-nmap ; :CtrlPBuffer<CR>
 set wildignore+=*/doc/*,*/tmp/*
 
 set noequalalways
