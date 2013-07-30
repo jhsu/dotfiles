@@ -28,6 +28,7 @@
 	diff = diff -b
 	ci = commit
 	br = branch
+	brr = for-each-ref --count=5 --sort=-committerdate refs/heads/ --format='%(refname:short)'
 	co = checkout
 	df = diff
 	lg = log -p
@@ -49,7 +50,7 @@
 	removed = !sh -c 'git log -1 -p | grep "^- " | wc -l'
 	added = !sh -c 'git log -1 -p | grep "^+ " | wc -l'
 	human = name-rev --name-only --refs=refs/heads/*
-	edit = !$EDITOR $(git status | grep modified | awk '{printf(\"%s \", $3)}' )
+	edit = !$EDITOR $(git status --short | awk '$1 ~ /^M$/ {print $2}' )
 [core]
 	excludesfile = /home/jshsu/.gitignore
 	editor = vim
