@@ -16,9 +16,7 @@ Bundle 'gmarik/vundle'
 Bundle 'L9'
 Bundle 'Align'
 
-" requires https://github.com/Shougo/vimproc.vim manual install
-Bundle 'Shougo/vimproc.vim'
-Bundle 'Shougo/unite.vim'
+Bundle 'ctrlp.vim'
 
 Bundle 'scrooloose/syntastic'
 Bundle 'rbgrouleff/bclose.vim'
@@ -78,14 +76,11 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'netrw.vim'
 Bundle 'unimpaired.vim'
 
-" unite
-" # http://bling.github.io/blog/2013/06/02/unite-dot-vim-the-plugin-you-didnt-know-you-need/
-" Bundle 'unite.vim'
-
 """"""""""""""""""""""""""""""""""""""
 
 filetype plugin indent on
-syntax enable                     " Enable syntax highlighting
+filetype indent on
+syntax on                     " Enable syntax highlighting
 
 set lazyredraw
 
@@ -95,9 +90,10 @@ set mouse=i " only allow mouse in insert mode to allow command+click
 
 " Tabs / Spacing
 set tabstop=2
-set shiftwidth=2
 set softtabstop=2
+set shiftwidth=2
 set expandtab
+
 set autoindent
 " set listchars=trail:~,tab:\|
 set listchars=tab:\▸\ ,trail:·
@@ -158,7 +154,6 @@ set guicursor=
 " FileType
 " most this stuff should be moved to ~/.vim/ftplugin/<filetype>.vim
 " augroup myfiletypes
-"   autocmd FileType ruby,eruby,yaml,ru,rabl set ai sw=2 sts=2 ts=2 ofu=syntaxcomplete#Complete
 "   autocmd FileType python set ts=8 expandtab shiftwidth=4 softtabstop=4 ofu=syntaxcomplete#Complete
 "   autocmd FileType html,css set ai sw=2 sts=2 ts=2 ofu=syntaxcomplete#Complete
 "   autocmd FileType css set  omnifunc=csscomplete#Complete
@@ -169,7 +164,8 @@ set guicursor=
 " augroup END
 
 autocmd BufNewFile,BufReadPost Vagrantfile,Guardfile,*.rabl setlocal filetype=ruby
-autocmd BufNewFile,BufReadPost *.go setlocal filetype=go
+" autocmd BufNewFile,BufReadPost *.go setlocal filetype=go
+autocmd FileType go setlocal noexpandtab
 autocmd BufNewFile,BufReadPost *.coffee setlocal filetype=coffee
 
 """"""""""""""""""""""""""""""""""""""
@@ -198,8 +194,8 @@ nnoremap <C-y> 3<C-y>
 " nnoremap ^ 0
 
 " save
-map <C-s> :w<CR>
-map <C-c> <esc>
+nmap <C-s> :w<CR>
+nmap <C-c> <esc>
 
 " bash hotkeys
 " vmap <C-c> y
@@ -282,10 +278,20 @@ let clj_highlight_builtins = 1
 let g:ackprg="ack -H --nocolor --nogroup --column"
 cabbrev ack Ack
 
-" Unite.vim
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-nnoremap <C-p> :<C-u>Unite -start-insert file_rec<CR>
-nmap ; :Unite buffer<CR>
+" Unite.vim {{{
+" call unite#filters#matcher_default#use(['matcher_fuzzy'])
+" " call unite#custom#source('file_rec', 'ignore_pattern',
+" "       \'\%(^\|/\)\.\.\?$\|\~$\|\.\%(o|exe|dll|bak|DS_Store|pyc|zwc|sw[po]|png|gif|jpg\)$')
+" " nnoremap <C-p> :<C-u>Unite -start-insert -auto-preview file_rec<CR>
+" " nnoremap <leader>t :<C-u>Unite -start-insert -hide-source-names buffer file_rec/async<CR>
+" nnoremap <leader>f :<C-u>Unite -auto-preview -start-insert file_rec/async:!<CR>
+" nmap ; :Unite -start-insert buffer<CR>
+" }}}
+
+" Ctrlp
+let g:ctrlp_match_window = 'top,order:ttb,min:1,max:10,results:10'
+nnoremap <leader>t :CtrlP<CR>
+nmap ; :CtrlPBuffer<CR>
 
 set wildignore+=*/doc/*,*/tmp/*
 
