@@ -290,8 +290,11 @@ cabbrev ack Ack
 
 " Ctrlp
 let g:ctrlp_match_window = 'top,order:ttb,min:1,max:10,results:10'
-nnoremap <leader>t :CtrlP<CR>
+map <C-t> :CtrlP<CR>
 nmap ; :CtrlPBuffer<CR>
+let g:ctrlp_match_window_reversed=0
+let g:ctrlp_match_window_bottom=1
+let g:ctrlp_map = ''
 
 set wildignore+=*/doc/*,*/tmp/*
 
