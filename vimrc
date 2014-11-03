@@ -8,73 +8,64 @@ set background=dark
 
 " Vundle packages
 
-set rtp+=~/.vim/bundle/vundle/
+set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#rc()
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/vundle'
 
 " Plugin helpers
-Bundle 'L9'
-Bundle 'Align'
+Plugin 'L9'
+Plugin 'Align'
 
-Bundle 'ctrlp.vim'
+Plugin 'ctrlp.vim'
 
-Bundle 'scrooloose/syntastic'
-Bundle 'rbgrouleff/bclose.vim'
+Plugin 'scrooloose/syntastic'
+Plugin 'rbgrouleff/bclose.vim'
 
-Bundle 'Buffersaurus'
-
-Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
-
-Bundle 'rvm.vim'
+" Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 
 " Themes
-Bundle 'jhsu/tomorrow-vim'
-Bundle 'effkay/argonaut.vim'
+Plugin 'jhsu/tomorrow-vim'
+Plugin 'effkay/argonaut.vim'
 
 " Syntax
-Bundle 'JSON.vim'
-Bundle 'tpope/vim-rails'
-Bundle 'Rubytest.vim'
-Bundle 'henrik/vim-ruby-runner'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'Handlebars'
-Bundle 'go.vim'
-Bundle 'vim-coffee-script'
-Bundle 'coffee.vim'
-Bundle 'Markdown'
-Bundle 'jelera/vim-javascript-syntax'
+Plugin 'JSON.vim'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'Handlebars'
+Plugin 'vim-coffee-script'
+Plugin 'coffee.vim'
+Plugin 'Markdown'
 
 " JST syntax
-Bundle 'pangloss/vim-javascript'
-Bundle 'briancollins/vim-jst'
+Plugin 'pangloss/vim-javascript'
+Plugin 'briancollins/vim-jst'
 
-Bundle 'ack.vim'
-Bundle 'surround.vim'
-Bundle 'bogado/file-line'
+Plugin 'ack.vim'
+Plugin 'surround.vim'
+Plugin 'bogado/file-line'
 
 " SCM
 "" hg
-Bundle 'thermometer'
+Plugin 'thermometer'
 "" git
-Bundle 'tpope/vim-fugitive'
-Bundle 'Gundo'
-Bundle 'airblade/vim-gitgutter'
+Plugin 'tpope/vim-fugitive'
+Plugin 'Gundo'
+Plugin 'airblade/vim-gitgutter'
 
-Bundle 'taglist-plus'
-Bundle 'SuperTab-continued.'
-Bundle 'Vim-Rspec'
-Bundle 'endwise.vim'
+Plugin 'taglist-plus'
+Plugin 'SuperTab-continued.'
+Plugin 'Vim-Rspec'
+Plugin 'endwise.vim'
 
-Bundle 'tpope/vim-commentary'
+Plugin 'tpope/vim-commentary'
 
 " Gist
-Bundle 'mattn/webapi-vim'
-Bundle 'mattn/gist-vim'
+Plugin 'mattn/webapi-vim'
+Plugin 'mattn/gist-vim'
 
 " navigation
-Bundle 'scrooloose/nerdtree'
-Bundle 'netrw.vim'
-Bundle 'unimpaired.vim'
+Plugin 'scrooloose/nerdtree'
+" Plugin 'netrw.vim'
+Plugin 'unimpaired.vim'
 
 """"""""""""""""""""""""""""""""""""""
 
@@ -216,7 +207,6 @@ set complete=.,w,b,t  " Word completion rules
 if has("statusline")
   set statusline=%<%F\ %#ErrorMsg#%{fugitive#statusline()}%#StatusLine#%=%([%M%R%H%W]\ %)%l,%c%V\ %P\ (%n)
   " set statusline+=%{buftabs#statusline()} " BufTabs, conflicts with powerline
-  set statusline+=%{rvm#statusline()}
   set laststatus=2
 endif                     " set statusline format
 
