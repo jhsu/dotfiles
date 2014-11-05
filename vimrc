@@ -9,7 +9,7 @@ set background=dark
 " Vundle packages
 
 set rtp+=~/.vim/bundle/Vundle.vim/
-call vundle#rc()
+call vundle#begin()
 Plugin 'gmarik/vundle'
 
 " Plugin helpers
@@ -39,6 +39,9 @@ Plugin 'Markdown'
 Plugin 'pangloss/vim-javascript'
 Plugin 'briancollins/vim-jst'
 
+Plugin 'wookiehangover/jshint.vim'
+let JSHintUpdateWriteOnly=1
+
 Plugin 'ack.vim'
 Plugin 'surround.vim'
 Plugin 'bogado/file-line'
@@ -66,6 +69,8 @@ Plugin 'mattn/gist-vim'
 Plugin 'scrooloose/nerdtree'
 " Plugin 'netrw.vim'
 Plugin 'unimpaired.vim'
+
+call vundle#end()
 
 """"""""""""""""""""""""""""""""""""""
 
@@ -105,7 +110,7 @@ set ttyfast
 set ruler
 set backspace=indent,eol,start
 set laststatus=2
-set relativenumber
+" set relativenumber
 " set undofile
 set ignorecase
 set smartcase
@@ -119,6 +124,8 @@ set wrap
 set textwidth=79
 set formatoptions=qrn1
 set colorcolumn=80
+highlight ColorColumn ctermbg=8
+highlight clear SignColumn
 
 set title
 set guifont="Inconsolata 14"
@@ -248,6 +255,7 @@ map <leader>c :ccl<cr>
 
 " NERD_tree
 map <silent> <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
+map <silent> <leader>f :execute 'NERDTreeFind '<CR>
 
 " Git
 let g:git_branch_status_head_current=1
