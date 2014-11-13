@@ -52,6 +52,7 @@ set mousemodel=popup
 set nocompatible
 set nobackup
 set noswapfile
+set number
 set shiftwidth=2
 set tabstop=2
 set smartindent
@@ -61,7 +62,7 @@ set tabstop=2
 set visualbell
 set wildmenu
 set wildmode=longest:full,full
-set wildignore+=tags,.*.un~,*.pyc
+set wildignore+=tags,.*.un~,*.pyc,*/tmp/*
 
 set clipboard=unnamed
 set showbreak=\\
@@ -89,9 +90,19 @@ nnoremap <C-P> :bp<CR>
 " Plugin Settings
 """
 
+let g:ctrlp_match_window = 'top,order:ttb,min:1,max:10,results:10'
+map <C-t> :CtrlP<CR>
+nmap ; :CtrlPBuffer<CR>
+let g:ctrlp_match_window_reversed=0
+let g:ctrlp_match_window_bottom=1
+let g:ctrlp_map = ''
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 let g:ctrlp_working_path_mode = ''
+
 let g:NERDTreeHijackNetrw = 0
+map <silent> <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
+map <silent> <leader>f :execute 'NERDTreeFind '<CR>
+
 let g:syntastic_auto_loc_list=1 " auto open/close location-list
 
 augroup FTOptions
