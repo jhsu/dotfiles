@@ -11,11 +11,13 @@ NeoBundle 'ctrlp.vim'
 
 NeoBundle 'jhsu/tomorrow-vim'
 
+NeoBundle 'tpope/vim-commentary'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-surround'
 
 NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'mileszs/ack.vim'
 
 NeoBundle 'scrooloose/syntastic'
 
@@ -88,6 +90,9 @@ let mapleader = ","
 nnoremap <C-N> :bn<CR>
 nnoremap <C-P> :bp<CR>
 
+" Ack
+let g:ackprg="ack -H --nocolor --nogroup --column"
+cabbrev ack Ack
 
 """
 " Plugin Settings
