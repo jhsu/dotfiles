@@ -1,6 +1,5 @@
 [user]
-	name = Joseph Hsu
-	email = jhsu.x1@gmail.com
+	name = Joe Hsu
 [github]
 	user = jhsu
 [apply]
@@ -45,12 +44,14 @@
 	pa = add --patch
 	addp = !git add $_
 	join = merge --no-ff --edit
+	completed = merge --squash
 	aliases = !git config --get-regexp 'alias.*'|colrm 1 6|sed 's/[ ]/ = /'
 	up = !sh -c 'git pull --rebase --prune ' # && git log --pretty=format:\"%Cred%ae %Creset- %C(yellow)%s %Creset(%ar)\" HEAD@{1}..'
 	removed = !sh -c 'git log -1 -p | grep "^- " | wc -l'
 	added = !sh -c 'git log -1 -p | grep "^+ " | wc -l'
 	human = name-rev --name-only --refs=refs/heads/*
 	edit = !$EDITOR $(git status --short | awk '$1 ~ /^M$/ {print $2}' )
+	medit = !$EDITOR $(git diff --name-only master)
 [core]
 	excludesfile = /home/jshsu/.gitignore
 	editor = vim
