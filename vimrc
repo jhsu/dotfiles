@@ -1,342 +1,113 @@
-set t_Co=256
-set nocompatible              " We're running Vim, not Vi!
-filetype off
+set runtimepath+=~/.vim/bundle/neobundle.vim/
 
-set shell=$SHELL\ -l " load login shell for things like chruby
+call neobundle#begin(expand('~/jhsu/vimbundle/'))
 
-set background=dark
+" Let NeoBundle manage NeoBundle
+" Required:
+NeoBundleFetch 'Shougo/neobundle.vim'
 
-" Vundle packages
+NeoBundle 'Align'
+NeoBundle 'ctrlp.vim'
 
-set rtp+=~/.vim/bundle/Vundle.vim/
-call vundle#begin()
-Plugin 'gmarik/vundle'
+NeoBundle 'jhsu/tomorrow-vim'
 
-" Plugin helpers
-Plugin 'L9'
-Plugin 'Align'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'scrooloose/nerdtree'
 
-Plugin 'ctrlp.vim'
+NeoBundle 'scrooloose/syntastic'
 
-Plugin 'scrooloose/syntastic'
-Plugin 'rbgrouleff/bclose.vim'
+" Filetypes
+NeoBundle 'vim-ruby/vim-ruby'
+NeoBundle 'jelera/vim-javascript-syntax'
+NeoBundle 'StanAngeloff/php.vim'
+NeoBundle 'hail2u/vim-css3-syntax'
 
-" Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+call neobundle#end()
 
-" Themes
-Plugin 'jhsu/tomorrow-vim'
-Plugin 'effkay/argonaut.vim'
-
-" Syntax
-Plugin 'JSON.vim'
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'Handlebars'
-Plugin 'vim-coffee-script'
-Plugin 'coffee.vim'
-Plugin 'Markdown'
-
-" JST syntax
-Plugin 'pangloss/vim-javascript'
-Plugin 'briancollins/vim-jst'
-
-Plugin 'wookiehangover/jshint.vim'
-let JSHintUpdateWriteOnly=1
-
-Plugin 'ack.vim'
-Plugin 'surround.vim'
-Plugin 'bogado/file-line'
-
-" SCM
-"" hg
-Plugin 'thermometer'
-"" git
-Plugin 'tpope/vim-fugitive'
-Plugin 'Gundo'
-Plugin 'airblade/vim-gitgutter'
-
-Plugin 'taglist-plus'
-Plugin 'SuperTab-continued.'
-Plugin 'Vim-Rspec'
-Plugin 'endwise.vim'
-
-Plugin 'tpope/vim-commentary'
-
-" Gist
-Plugin 'mattn/webapi-vim'
-Plugin 'mattn/gist-vim'
-
-" navigation
-Plugin 'scrooloose/nerdtree'
-" Plugin 'netrw.vim'
-Plugin 'unimpaired.vim'
-
-call vundle#end()
-
-""""""""""""""""""""""""""""""""""""""
-
+syntax on
 filetype plugin indent on
-filetype indent on
-syntax on                     " Enable syntax highlighting
-
-set lazyredraw
-
-" Mouse controls (iterm2)
-set ttymouse=xterm2
-set mouse=i " only allow mouse in insert mode to allow command+click
-
-" Tabs / Spacing
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2
-set expandtab
 
 set autoindent
-" set listchars=trail:~,tab:\|
+set autoread
+set autowrite
+set backspace=2 " make backspace work like most other apps
+set complete-=i
+set display=lastline
+if exists('+breakindent')
+  set breakindent showbreak=\ +
+endif
+set foldmethod=marker
+set foldopen+=jump
+set history=200
+set hlsearch
+set incsearch       " Incremental search
+set laststatus=2    " Always show status line
+set lazyredraw
+set linebreak
 set listchars=tab:\▸\ ,trail:·
 set list
-
-set autoread
-
-set encoding=utf-8
-set scrolloff=3
-set showmode
-set showcmd
-set hidden
-set wildmenu " show tab completion results
-" set wildmode=list:longest
-set visualbell
-set cursorline
-set ttyfast
-set ruler
-set backspace=indent,eol,start
-set laststatus=2
-" set relativenumber
-" set undofile
-set ignorecase
-set smartcase
-" set gdefault " This messes up search and replace
-set incsearch
-set showmatch
-
-nnoremap <leader><space> :let @/=''<cr>
-
-set wrap
-set textwidth=79
-set formatoptions=qrn1
-set colorcolumn=80
-highlight ColorColumn ctermbg=8
-highlight clear SignColumn
-
-set title
-set guifont="Inconsolata 14"
-
-nnoremap ; :
-
-set viminfo^=!
-set clipboard=unnamed
-
-set history=50        " have fifty lines of command-line (etc) history:
-set nobackup          " Don't leave backup files (swp is good)
-set complete=.,w,b,t  " Word completion rules
-
-set noruler
-set number
-
-" MatchIt - included n vim
-runtime! macros/matchit.vim   " Load matchit (% to bounce from do to end, etc.)
-let &guicursor = &guicursor . ",a:blinkon0" " stops blink wake up
-set guicursor=
-
-""""""""""""""""""""""""""""""""""""""
-
-" FileType
-" most this stuff should be moved to ~/.vim/ftplugin/<filetype>.vim
-" augroup myfiletypes
-"   autocmd FileType python set ts=8 expandtab shiftwidth=4 softtabstop=4 ofu=syntaxcomplete#Complete
-"   autocmd FileType html,css set ai sw=2 sts=2 ts=2 ofu=syntaxcomplete#Complete
-"   autocmd FileType css set  omnifunc=csscomplete#Complete
-"   autocmd FileType php set ai sw=2 sts=2 ts=2
-"   autocmd FileType go  setl noexpandtab shiftwidth=0 tabstop=8 softtabstop=8 nolist
-"   autocmd FileType coffee setl foldmethod=indent shiftwidth=2 expandtab
-"   autocmd FileType json setlocal autoindent formatoptions=tcq2l textwidth=78 shiftwidth=2 softtabstop=2 tabstop=8 expandtab foldmethod=syntax
-" augroup END
-
-autocmd BufNewFile,BufReadPost Vagrantfile,Guardfile,*.rabl setlocal filetype=ruby
-" autocmd BufNewFile,BufReadPost *.go setlocal filetype=go
-autocmd FileType go setlocal noexpandtab
-autocmd BufNewFile,BufReadPost *.coffee setlocal filetype=coffee
-
-""""""""""""""""""""""""""""""""""""""
-
-" This beauty remembers where you were the last time you edited the file, and returns to the same position.
-au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
-
-" KEYBOARD BINDINGS
-
-nnoremap ' `
-nnoremap ` '
-let mapleader = ","
-
-vnoremap . :norm.<CR>
-
-" yank current line to unnamed register
-vnoremap Y "*y
-noremap <leader>p :set paste<CR>"*p<CR>:set nopaste<CR>
-
-"faster scrolling using <C-e> and <C-y>
-nnoremap <C-e> 3<C-e>
-nnoremap <C-y> 3<C-y>
-
-" Better jump to beginning of line to be like regex
-" nnoremap 0 ^
-" nnoremap ^ 0
-
-" save
-nmap <C-s> :w<CR>
-nmap <C-c> <esc>
-
-" bash hotkeys
-" vmap <C-c> y
-" vmap <C-x> x
-imap <C-v> <esc>p
-
-" highlight search
-set hlsearch
-
-set shortmess=atI " rid interruptive prompts
-
-set visualbell
-
-set nobackup          " Don't leave backup files (swp is good)
+set mouse=nvi
+set listchars=tab:\▸\ ,trail:·
+set mousemodel=popup
+set nocompatible
+set nobackup
 set noswapfile
-set complete=.,w,b,t  " Word completion rules
+set shiftwidth=2
+set tabstop=2
+set smartindent
+set showmatch
+set t_Co=256
+set tabstop=2
+set visualbell
+set wildmenu
+set wildmode=longest:full,full
+set wildignore+=tags,.*.un~,*.pyc
+
+set clipboard=unnamed
+set showbreak=\\
+
+set wildmode=longest,list,full
+set wildmenu
+
 
 if has("statusline")
   set statusline=%<%F\ %#ErrorMsg#%{fugitive#statusline()}%#StatusLine#%=%([%M%R%H%W]\ %)%l,%c%V\ %P\ (%n)
   " set statusline+=%{buftabs#statusline()} " BufTabs, conflicts with powerline
-  set laststatus=2
 endif                     " set statusline format
 
-set showbreak=\\          " show line break
-" normally don't automatically format `text' as it is typed, IE only do this
-" with comments, at 79 characters:
-" set formatoptions-=t
+colorscheme Tomorrow-Night
 
-" have the h and l cursor keys wrap between lines (like <Space> and <BkSpc> do
-" by default), and ~ covert case over line breaks; also have the cursor keys
-" wrap in insert mode:
-set whichwrap=h,l,~,[,]
-
+"""
+" Mappings
+"""
+let mapleader = ","
 nnoremap <C-N> :bn<CR>
 nnoremap <C-P> :bp<CR>
-inoremap jj <Esc>
 
-" have % bounce between angled brackets, as well as t'other kinds:
-set matchpairs+=<:>
 
-" Up and down visually, including wrap
-map j gj
-map k gk
+"""
+" Plugin Settings
+"""
 
-" Snippets
-imap <C-q> <C-]>
-
-" tab navigation
-map bn :bn<CR>
-map bp :bp<CR>
-" uses BClose plugin
-nnoremap <silent> bd :Bclose<CR>
-
-" Smart sentence recognition
-set cpo+=J
-
-" Quickfix window
-map <leader>c :ccl<cr>
-
-" NERD_tree
-map <silent> <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
-map <silent> <leader>f :execute 'NERDTreeFind '<CR>
-
-" Git
-let g:git_branch_status_head_current=1
-let g:git_branch_status_ignore_remotes=1 
-let g:git_branch_status_nogit=""
-let g:git_branch_status_text="text"
-
-" Ruby
-" command! FR set filetype=ruby
-" if has("autocmd")
-"   au FileType ruby map  <buffer> <C-e>   :RunRuby<CR>
-" endif
-
-" VimClojure
-let clj_highlight_builtins = 1
-
-" Ack
-let g:ackprg="ack -H --nocolor --nogroup --column"
-cabbrev ack Ack
-
-" Unite.vim {{{
-" call unite#filters#matcher_default#use(['matcher_fuzzy'])
-" " call unite#custom#source('file_rec', 'ignore_pattern',
-" "       \'\%(^\|/\)\.\.\?$\|\~$\|\.\%(o|exe|dll|bak|DS_Store|pyc|zwc|sw[po]|png|gif|jpg\)$')
-" " nnoremap <C-p> :<C-u>Unite -start-insert -auto-preview file_rec<CR>
-" " nnoremap <leader>t :<C-u>Unite -start-insert -hide-source-names buffer file_rec/async<CR>
-" nnoremap <leader>f :<C-u>Unite -auto-preview -start-insert file_rec/async:!<CR>
-" nmap ; :Unite -start-insert buffer<CR>
-" }}}
-
-" Ctrlp
-let g:ctrlp_match_window = 'top,order:ttb,min:1,max:10,results:10'
-map <C-t> :CtrlP<CR>
-nmap ; :CtrlPBuffer<CR>
-let g:ctrlp_match_window_reversed=0
-let g:ctrlp_match_window_bottom=1
-let g:ctrlp_map = ''
-
-set wildignore+=*/doc/*,*/tmp/*
-
-set noequalalways
-
-" Gitv
-nmap <leader>gv :Gitv --all<cr>
-nmap <leader>gV :Gitv! --all<cr>
-cabbrev git Git
-highlight diffAdded guifg=#00bf00
-highlight diffRemoved guifg=#bf0000
-
-" Gundo
-nnoremap <F5> :GundoToggle<CR>
-
-" Vim-powerline
-let g:Powerline_symbols = 'fancy'
-
-" RubyTest
-let g:rubytest_in_quickfix = 1
-let g:rubytest_cmd_test = "testdrb %p"
-let g:rubytest_cmd_testcase = "testdrb %p -n '/%c/'"
-map <Leader>\ <Plug>RubyTestRun<cr>
-map <leader>r <Plug>RubyFileRun<cr>
-
-" Syntastic
+let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+let g:ctrlp_working_path_mode = ''
+let g:NERDTreeHijackNetrw = 0
 let g:syntastic_auto_loc_list=1 " auto open/close location-list
 
-" UltiSnips
-let g:UltiSnipsEditSplit="horizontal"
+augroup FTOptions
+	autocmd FileType css setlocal iskeyword+=-
+	autocmd Syntax   javascript             setlocal isk+=$
+	autocmd FileType xml,xsd,xslt,javascript setlocal ts=2
+	autocmd FileType ruby setlocal tw=79 comments=:#\  isfname+=: expandtab tabstop=2 shiftwidth=2 softtabstop=2
+	autocmd FileType ruby
+				\ let b:start = executable('pry') ? 'pry -r "%:p"' : 'irb -r "%:p"' |
+				\ if expand('%') =~# '_test\.rb$' |
+				\   let b:dispatch = 'testrb %' |
+				\ elseif expand('%') =~# '_spec\.rb$' |
+				\   let b:dispatch = 'rspec %' |
+				\ elseif !exists('b:dispatch') |
+				\   let b:dispatch = 'ruby -wc %' |
+				\ endif
+augroup END
 
-let g:UltiSnipsExpandTrigger="<tab>"
-
-" Folding ----------------------------------------------------------------- {{{
-
-set nofoldenable
-set foldnestmax=10
-set foldlevel=1
-nnoremap <Space> za
-vnoremap <Space> za
-
-" Refocus folds
-nnoremap ,z zMzvzz
-
-" Make zO recursively open whatever top level fold we're in, no matter where the
-" cursor happens to be.
-nnoremap zO zCzO
+NeoBundleCheck
