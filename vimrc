@@ -12,6 +12,7 @@ NeoBundle 'ctrlp.vim'
 NeoBundle 'jhsu/tomorrow-vim'
 
 NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'scrooloose/nerdtree'
 
 NeoBundle 'scrooloose/syntastic'
