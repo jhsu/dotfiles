@@ -1,6 +1,6 @@
 set runtimepath+=~/.vim/bundle/neobundle.vim/
 
-call neobundle#begin(expand('~/jhsu/vimbundle/'))
+call neobundle#begin(expand('~/.vim/bundle/'))
 
 " Let NeoBundle manage NeoBundle
 " Required:
@@ -12,6 +12,8 @@ NeoBundle 'ctrlp.vim'
 NeoBundle 'jhsu/tomorrow-vim'
 
 NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-surround'
+
 NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'scrooloose/nerdtree'
 
