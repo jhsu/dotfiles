@@ -23,7 +23,10 @@ NeoBundle 'scrooloose/syntastic'
 
 " Filetypes
 NeoBundle 'vim-ruby/vim-ruby'
+
 NeoBundle 'jelera/vim-javascript-syntax'
+NeoBundle 'mxw/vim-jsx'
+
 NeoBundle 'StanAngeloff/php.vim'
 NeoBundle 'hail2u/vim-css3-syntax'
 
