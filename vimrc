@@ -27,6 +27,8 @@ NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'jelera/vim-javascript-syntax'
 NeoBundle 'mxw/vim-jsx'
 
+NeoBundle 'jtratner/vim-flavored-markdown'
+
 NeoBundle 'StanAngeloff/php.vim'
 NeoBundle 'hail2u/vim-css3-syntax'
 
@@ -48,6 +50,7 @@ set foldmethod=marker
 set foldopen+=jump
 set history=200
 set hlsearch
+set ignorecase
 set incsearch       " Incremental search
 set laststatus=2    " Always show status line
 set lazyredraw
@@ -62,6 +65,7 @@ set nobackup
 set noswapfile
 set number
 set shiftwidth=2
+set smartcase
 set tabstop=2
 set smartindent
 set showmatch
@@ -90,8 +94,13 @@ colorscheme Tomorrow-Night
 " Mappings
 """
 let mapleader = ","
+nnoremap j gj
+nnoremap k gk
+vnoremap j gj
+vnoremap k gk
 nnoremap <C-N> :bn<CR>
 nnoremap <C-P> :bp<CR>
+nmap <C-c> <esc>
 
 " Ack
 let g:ackprg="ack -H --nocolor --nogroup --column"
