@@ -124,6 +124,11 @@ map <silent> <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
 map <silent> <leader>f :execute 'NERDTreeFind '<CR>
 
 let g:syntastic_auto_loc_list=1 " auto open/close location-list
+if file_readable('.jshintrc')
+	let g:syntastic_javascript_jshint_args = '--config .jshintrc'
+elseif file_readable('~/.jshintrc')
+	let g:syntastic_javascript_jshint_args = '--config ~/.jshintrc'
+endif
 
 augroup FTOptions
 	autocmd FileType css setlocal iskeyword+=-
