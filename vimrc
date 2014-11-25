@@ -24,6 +24,8 @@ NeoBundle 'scrooloose/syntastic'
 " Filetypes
 NeoBundle 'vim-ruby/vim-ruby'
 
+NeoBundle 'groenewege/vim-less'
+
 NeoBundle 'jelera/vim-javascript-syntax'
 NeoBundle 'mxw/vim-jsx'
 
@@ -31,6 +33,12 @@ NeoBundle 'jtratner/vim-flavored-markdown'
 
 NeoBundle 'StanAngeloff/php.vim'
 NeoBundle 'hail2u/vim-css3-syntax'
+
+NeoBundle 'vim-scripts/paredit.vim'
+NeoBundle 'tpope/vim-fireplace'
+NeoBundle 'guns/vim-clojure-static'
+NeoBundle 'guns/vim-clojure-highlight'
+
 
 call neobundle#end()
 
@@ -46,6 +54,7 @@ set display=lastline
 if exists('+breakindent')
   set breakindent showbreak=\ +
 endif
+set expandtab
 set foldmethod=marker
 set foldopen+=jump
 set history=200
@@ -66,12 +75,13 @@ set noswapfile
 set number
 set shiftwidth=2
 set smartcase
-set tabstop=2
+set softtabstop=2
 set smartindent
 set showmatch
 set t_Co=256
 set tabstop=2
 set visualbell
+set whichwrap+=<,>,h,l,[,]
 set wildmenu
 set wildmode=longest:full,full
 set wildignore+=tags,.*.un~,*.pyc,*/tmp/*
@@ -102,10 +112,6 @@ nnoremap <C-N> :bn<CR>
 nnoremap <C-P> :bp<CR>
 nmap <C-c> <esc>
 
-" Ack
-let g:ackprg="ack -H --nocolor --nogroup --column"
-cabbrev ack Ack
-
 """
 " Plugin Settings
 """
@@ -125,25 +131,36 @@ map <silent> <leader>f :execute 'NERDTreeFind '<CR>
 
 let g:syntastic_auto_loc_list=1 " auto open/close location-list
 if file_readable('.jshintrc')
-	let g:syntastic_javascript_jshint_args = '--config .jshintrc'
+  let g:syntastic_javascript_jshint_args = '--config .jshintrc'
 elseif file_readable('~/.jshintrc')
-	let g:syntastic_javascript_jshint_args = '--config ~/.jshintrc'
+  let g:syntastic_javascript_jshint_args = '--config ~/.jshintrc'
 endif
 
+let g:ackprg="ack -H --nocolor --nogroup --column"
+cabbrev ack Ack
+
+nnoremap <C-e> :Eval<CR>
+nnoremap E :%Eval<CR>
+
+"""
+" Filetype
+"""
+
 augroup FTOptions
-	autocmd FileType css setlocal iskeyword+=-
-	autocmd Syntax   javascript             setlocal isk+=$
-	autocmd FileType xml,xsd,xslt,javascript setlocal ts=2
-	autocmd FileType ruby setlocal tw=79 comments=:#\  isfname+=: expandtab tabstop=2 shiftwidth=2 softtabstop=2
-	autocmd FileType ruby
-				\ let b:start = executable('pry') ? 'pry -r "%:p"' : 'irb -r "%:p"' |
-				\ if expand('%') =~# '_test\.rb$' |
-				\   let b:dispatch = 'testrb %' |
-				\ elseif expand('%') =~# '_spec\.rb$' |
-				\   let b:dispatch = 'rspec %' |
-				\ elseif !exists('b:dispatch') |
-				\   let b:dispatch = 'ruby -wc %' |
-				\ endif
+  autocmd FileType css setlocal iskeyword+=-
+  autocmd Syntax   javascript             setlocal isk+=$
+  autocmd FileType javascript             setlocal expandtab
+  autocmd FileType xml,xsd,xslt,javascript setlocal ts=2
+  autocmd FileType ruby setlocal tw=79 comments=:#\  isfname+=: expandtab tabstop=2 shiftwidth=2 softtabstop=2
+  autocmd FileType ruby
+        \ let b:start = executable('pry') ? 'pry -r "%:p"' : 'irb -r "%:p"' |
+        \ if expand('%') =~# '_test\.rb$' |
+        \   let b:dispatch = 'testrb %' |
+        \ elseif expand('%') =~# '_spec\.rb$' |
+        \   let b:dispatch = 'rspec %' |
+        \ elseif !exists('b:dispatch') |
+        \   let b:dispatch = 'ruby -wc %' |
+        \ endif
 augroup END
 
 NeoBundleCheck
