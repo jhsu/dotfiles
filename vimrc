@@ -39,6 +39,7 @@ NeoBundle 'tpope/vim-fireplace'
 NeoBundle 'guns/vim-clojure-static'
 NeoBundle 'guns/vim-clojure-highlight'
 
+NeoBundle 'Shougo/neocomplete.vim'
 
 call neobundle#end()
 
@@ -112,6 +113,9 @@ nnoremap <C-N> :bn<CR>
 nnoremap <C-P> :bp<CR>
 nmap <C-c> <esc>
 
+nnoremap <C-e> :Eval<CR>
+nnoremap E :%Eval<CR>
+
 """
 " Plugin Settings
 """
@@ -139,8 +143,11 @@ endif
 let g:ackprg="ack -H --nocolor --nogroup --column"
 cabbrev ack Ack
 
-nnoremap <C-e> :Eval<CR>
-nnoremap E :%Eval<CR>
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 """
 " Filetype
