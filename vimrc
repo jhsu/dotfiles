@@ -37,6 +37,7 @@ NeoBundle 'hail2u/vim-css3-syntax'
 NeoBundle 'vim-scripts/paredit.vim'
 NeoBundle 'tpope/vim-fireplace'
 NeoBundle 'guns/vim-clojure-static'
+NeoBundle 'amdt/vim-niji'
 NeoBundle 'guns/vim-clojure-highlight'
 
 NeoBundle 'Shougo/neocomplete.vim'
