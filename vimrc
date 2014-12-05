@@ -9,6 +9,8 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'Align'
 NeoBundle 'ctrlp.vim'
 
+NeoBundle 'bogado/file-line'
+
 NeoBundle 'jhsu/tomorrow-vim'
 
 NeoBundle 'tpope/vim-commentary'
@@ -25,6 +27,9 @@ NeoBundle 'scrooloose/syntastic'
 NeoBundle 'vim-ruby/vim-ruby'
 
 NeoBundle 'groenewege/vim-less'
+NeoBundle 'hail2u/vim-css3-syntax'
+
+NeoBundle 'mustache/vim-mustache-handlebars'
 
 NeoBundle 'jelera/vim-javascript-syntax'
 NeoBundle 'mxw/vim-jsx'
@@ -32,11 +37,10 @@ NeoBundle 'mxw/vim-jsx'
 NeoBundle 'jtratner/vim-flavored-markdown'
 
 NeoBundle 'StanAngeloff/php.vim'
-NeoBundle 'hail2u/vim-css3-syntax'
 
 NeoBundle 'vim-scripts/paredit.vim'
 NeoBundle 'tpope/vim-fireplace'
-NeoBundle 'guns/vim-clojure-static'
+" NeoBundle 'guns/vim-clojure-static'
 NeoBundle 'amdt/vim-niji'
 NeoBundle 'guns/vim-clojure-highlight'
 
@@ -140,6 +144,7 @@ if file_readable('.jshintrc')
 elseif file_readable('~/.jshintrc')
   let g:syntastic_javascript_jshint_args = '--config ~/.jshintrc'
 endif
+let g:syntastic_html_checkers=['']
 
 let g:ackprg="ack -H --nocolor --nogroup --column"
 cabbrev ack Ack
