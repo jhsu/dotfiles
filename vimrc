@@ -132,7 +132,7 @@ nmap ; :CtrlPBuffer<CR>
 let g:ctrlp_match_window_reversed=0
 let g:ctrlp_match_window_bottom=1
 let g:ctrlp_map = ''
-let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
 let g:ctrlp_working_path_mode = ''
 
 let g:NERDTreeHijackNetrw = 0
