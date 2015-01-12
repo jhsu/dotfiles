@@ -47,6 +47,8 @@ NeoBundle 'guns/vim-clojure-highlight'
 NeoBundle 'terryma/vim-multiple-cursors'
 NeoBundle 'Shougo/neocomplete.vim'
 
+NeoBundle 'editorconfig/editorconfig-vim'
+
 call neobundle#end()
 
 syntax on
@@ -64,6 +66,7 @@ endif
 set expandtab
 set foldmethod=marker
 set foldopen+=jump
+set hidden
 set history=200
 set hlsearch
 set ignorecase
