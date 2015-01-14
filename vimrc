@@ -32,6 +32,7 @@ NeoBundle 'hail2u/vim-css3-syntax'
 NeoBundle 'mustache/vim-mustache-handlebars'
 
 NeoBundle 'jelera/vim-javascript-syntax'
+NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'mxw/vim-jsx'
 
 NeoBundle 'jtratner/vim-flavored-markdown'
