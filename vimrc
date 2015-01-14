@@ -66,7 +66,6 @@ endif
 set expandtab
 set foldmethod=marker
 set foldopen+=jump
-set hidden
 set history=200
 set hlsearch
 set ignorecase
