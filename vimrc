@@ -44,6 +44,8 @@ NeoBundle 'tpope/vim-fireplace'
 " NeoBundle 'guns/vim-clojure-static'
 NeoBundle 'amdt/vim-niji'
 NeoBundle 'guns/vim-clojure-highlight'
+NeoBundle 'guns/vim-sexp'
+NeoBundle 'tpope/vim-sexp-mappings-for-regular-people'
 
 NeoBundle 'terryma/vim-multiple-cursors'
 NeoBundle 'Shougo/neocomplete.vim'
@@ -164,6 +166,9 @@ let g:multi_cursor_next_key='<C-i>'
 let g:multi_cursor_prev_key='<C-y>'
 let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<C-c>'
+
+let g:sexp_enable_insert_mode_mappings = 0
+let g:sexp_insert_after_wrap = 0
 
 """
 " Filetype
