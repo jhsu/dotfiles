@@ -2,4 +2,5 @@
 --exclude=tags \
 --exclude=logs \
 --exclude=doc \
+--exclude=node_modules \
 -R
