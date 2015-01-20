@@ -25,6 +25,7 @@
 	st = status
 	sh = status --short
 	diff = diff -b
+	cm = commit -S
 	ci = commit
 	br = branch
 	brr = for-each-ref --count=5 --sort=-committerdate refs/heads/ --format='%(refname:short)'
@@ -34,9 +35,9 @@
 	pt = push -u
 	who = shortlog -s --
 	lc = log ORIG_HEAD.. --stat --no-merges
-	llog = log --date=local
+	log = log --date=local
 	gitkconflict = !gitk --left-right HEAD...MERGE_HEAD
-	edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim `f`"
+	edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; $EDITOR `f`"
 	add-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
 	springclean = "!git remote prune origin && git gc"
 	k = !gitk
@@ -46,7 +47,7 @@
 	join = merge --no-ff --edit
 	completed = merge --squash
 	aliases = !git config --get-regexp 'alias.*'|colrm 1 6|sed 's/[ ]/ = /'
-	up = !sh -c 'git pull --rebase ' # && git log --pretty=format:\"%Cred%ae %Creset- %C(yellow)%s %Creset(%ar)\" HEAD@{1}..'
+	up = !sh -c 'git pull --rebase && git log --pretty=format:\"%Cred%ae %Creset- %C(yellow)%s %Creset(%ar)\" HEAD@{1}..'
 	removed = !sh -c 'git log -1 -p | grep "^- " | wc -l'
 	added = !sh -c 'git log -1 -p | grep "^+ " | wc -l'
 	human = name-rev --name-only --refs=refs/heads/*
