@@ -96,7 +96,8 @@ set visualbell
 set whichwrap+=<,>,h,l,[,]
 set wildmenu
 set wildmode=longest:full,full
-set wildignore+=tags,.*.un~,*.pyc,*/tmp/*
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
+set wildignore+=tags,.*.un~,*.pyc,*/tmp/*,node_modules,bower_components
 
 set clipboard=unnamed
 set showbreak=\\
@@ -131,14 +132,15 @@ nnoremap E :%Eval<CR>
 " Plugin Settings
 """
 
-let g:ctrlp_match_window = 'top,order:ttb,min:1,max:10,results:10'
-map <C-t> :CtrlP<CR>
 nmap ; :CtrlPBuffer<CR>
-let g:ctrlp_match_window_reversed=0
-let g:ctrlp_match_window_bottom=1
-let g:ctrlp_map = ''
-let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
+let g:ctrlp_map = '<C-t>'
+let g:ctrlp_match_height = 15
+let g:ctrlp_match_window_bottom = 1
 let g:ctrlp_working_path_mode = ''
+if executable('ag')
+  let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden --nogroup -i -g ""'
+  let g:ctrlp_use_caching = 0
+endif
 
 let g:NERDTreeHijackNetrw = 0
 map <silent> <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
