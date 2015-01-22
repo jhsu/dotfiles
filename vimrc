@@ -124,6 +124,7 @@ vnoremap k gk
 nnoremap <C-N> :bn<CR>
 nnoremap <C-P> :bp<CR>
 nmap <C-c> <esc>
+inoremap <C-c> <Esc><Esc>
 
 nnoremap <C-e> :Eval<CR>
 nnoremap E :%Eval<CR>
