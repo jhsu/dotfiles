@@ -17,6 +17,8 @@ NeoBundle 'tpope/vim-commentary'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-surround'
 
+NeoBundle 'godlygeek/tabular'
+
 NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'mileszs/ack.vim'
@@ -41,14 +43,17 @@ NeoBundle 'StanAngeloff/php.vim'
 
 NeoBundle 'vim-scripts/paredit.vim'
 NeoBundle 'tpope/vim-fireplace'
-" NeoBundle 'guns/vim-clojure-static'
+NeoBundle 'guns/vim-clojure-static'
 NeoBundle 'amdt/vim-niji'
 NeoBundle 'guns/vim-clojure-highlight'
 NeoBundle 'guns/vim-sexp'
 NeoBundle 'tpope/vim-sexp-mappings-for-regular-people'
+NeoBundle 'venantius/vim-cljfmt'
 
 NeoBundle 'terryma/vim-multiple-cursors'
 NeoBundle 'Shougo/neocomplete.vim'
+NeoBundle 'git-mirror/vim-l9'
+NeoBundle 'othree/vim-autocomplpop'
 
 NeoBundle 'editorconfig/editorconfig-vim'
 
@@ -105,6 +110,8 @@ set showbreak=\\
 set wildmode=longest,list,full
 set wildmenu
 
+set completeopt=longest,menuone
+
 
 if has("statusline")
   set statusline=%<%F\ %#ErrorMsg#%{fugitive#statusline()}%#StatusLine#%=%([%M%R%H%W]\ %)%l,%c%V\ %P\ (%n)
@@ -144,8 +151,14 @@ if executable('ag')
 endif
 
 let g:NERDTreeHijackNetrw = 0
+let NERDTreeRespectWildIgnore = 1
+let NERDTreeQuitOnOpen = 1
+" let NERDTreeIgnore=['node_modules[[dir]]', '\~$']
 map <silent> <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
 map <silent> <leader>f :execute 'NERDTreeFind '<CR>
+
+
+""" Syntastic
 
 let g:syntastic_auto_loc_list=1 " auto open/close location-list
 if file_readable('.jshintrc')
@@ -153,16 +166,34 @@ if file_readable('.jshintrc')
 elseif file_readable('~/.jshintrc')
   let g:syntastic_javascript_jshint_args = '--config ~/.jshintrc'
 endif
-let g:syntastic_html_checkers=['']
+let g:syntastic_html_tidy_ignore_errors=["trimming empty <"]
+
+let g:syntastic_javascript_checkers = ['jsxhint']
+
+" let g:syntastic_html_checkers=['']
 
 let g:ackprg="ack -H --nocolor --nogroup --column"
 cabbrev ack Ack
 
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+""" neocomplete
+let g:acp_enableAtStartup = 1
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+
+""" Enable omni completion.
+
+" autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+" autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+" autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+" autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+" autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+""" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
 
 let g:multi_cursor_use_default_mapping=0
 let g:multi_cursor_next_key='<C-i>'
@@ -173,12 +204,23 @@ let g:multi_cursor_quit_key='<C-c>'
 let g:sexp_enable_insert_mode_mappings = 0
 let g:sexp_insert_after_wrap = 0
 
+let g:clojure_align_multiline_strings = 1
+
+" let g:gitgutter_sign_added = '+'
+" let g:gitgutter_sign_modified = '~'
+" let g:gitgutter_sign_removed = '-'
+" let g:gitgutter_sign_removed_first_line = '^^'
+" let g:gitgutter_sign_modified_removed = 'ww'
+
+let g:clj_fmt_autosave = 0
+
 """
 " Filetype
 """
 
 augroup FTOptions
   autocmd FileType css setlocal iskeyword+=-
+  autocmd FileType htmlcheetah setlocal ft=html
   autocmd Syntax   javascript             setlocal isk+=$
   autocmd FileType javascript             setlocal expandtab
   autocmd FileType xml,xsd,xslt,javascript setlocal ts=2
