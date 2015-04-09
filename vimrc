@@ -51,15 +51,19 @@ NeoBundle 'tpope/vim-sexp-mappings-for-regular-people'
 NeoBundle 'venantius/vim-cljfmt'
 
 NeoBundle 'terryma/vim-multiple-cursors'
-NeoBundle 'Shougo/neocomplete.vim'
+NeoBundle 'jhsu/neocomplete.vim', 'remove-vim-version-check'
 NeoBundle 'git-mirror/vim-l9'
 NeoBundle 'othree/vim-autocomplpop'
+NeoBundle 'OnSyntaxChange'
+
+NeoBundle 'sjl/gundo.vim'
 
 NeoBundle 'editorconfig/editorconfig-vim'
 
 call neobundle#end()
 
 syntax on
+let no_plugin_maps = 1
 filetype plugin indent on
 
 set autoindent
@@ -74,6 +78,7 @@ endif
 set expandtab
 set foldmethod=marker
 set foldopen+=jump
+set hidden
 set history=200
 set hlsearch
 set ignorecase
@@ -130,11 +135,13 @@ vnoremap j gj
 vnoremap k gk
 nnoremap <C-N> :bn<CR>
 nnoremap <C-P> :bp<CR>
-nmap <C-c> <esc>
-inoremap <C-c> <Esc><Esc>
-
+imap <C-c> <Esc><Esc>
+nmap <C-c> <Esc><Esc>
+inoremap <C-c> <Esc>
 nnoremap <C-e> :Eval<CR>
 nnoremap E :%Eval<CR>
+
+nnoremap <leader>y :let @+=expand("%") . ':' . line(".")<CR>
 
 """
 " Plugin Settings
@@ -142,9 +149,8 @@ nnoremap E :%Eval<CR>
 
 nmap ; :CtrlPBuffer<CR>
 let g:ctrlp_map = '<C-t>'
-let g:ctrlp_match_height = 15
-let g:ctrlp_match_window_bottom = 1
-let g:ctrlp_working_path_mode = ''
+let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:25,results=25'
+let g:ctrlp_working_path_mode = 'ra'
 if executable('ag')
   let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden --nogroup -i -g ""'
   let g:ctrlp_use_caching = 0
@@ -153,6 +159,7 @@ endif
 let g:NERDTreeHijackNetrw = 0
 let NERDTreeRespectWildIgnore = 1
 let NERDTreeQuitOnOpen = 1
+let NERDTreeWinPos = 'right'
 " let NERDTreeIgnore=['node_modules[[dir]]', '\~$']
 map <silent> <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
 map <silent> <leader>f :execute 'NERDTreeFind '<CR>
@@ -175,12 +182,13 @@ let g:syntastic_javascript_checkers = ['jsxhint']
 let g:ackprg="ack -H --nocolor --nogroup --column"
 cabbrev ack Ack
 
+let g:omni_sql_no_default_maps = 1
 
 """ neocomplete
-let g:acp_enableAtStartup = 1
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#sources#syntax#min_keyword_length = 3
+" let g:acp_enableAtStartup = 1
+" let g:neocomplete#enable_at_startup = 1
+" let g:neocomplete#enable_smart_case = 1
+" let g:neocomplete#sources#syntax#min_keyword_length = 3
 
 """ Enable omni completion.
 
@@ -190,10 +198,16 @@ let g:neocomplete#sources#syntax#min_keyword_length = 3
 " autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 " autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
+call OnSyntaxChange#Install('Comment', '^Comment$', 0, 'i')
+autocmd User SyntaxCommentEnterI silent! AcpLock
+autocmd User SyntaxCommentEnterI silent! NeoCompleteLock
+autocmd User SyntaxCommentLeaveI silent! AcpUnlock
+autocmd User SyntaxCommentLeaveI silent! NeoCompleteUnlock
+
 """ Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
+" if !exists('g:neocomplete#sources#omni#input_patterns')
+"   let g:neocomplete#sources#omni#input_patterns = {}
+" endif
 
 let g:multi_cursor_use_default_mapping=0
 let g:multi_cursor_next_key='<C-i>'
