@@ -1,0 +1,31 @@
+// Place your settings in this file to overwrite the default settings
+{
+    "editor.fontFamily": "Fira Code",
+    "editor.fontLigatures": true,
+    "editor.fontSize": 20,
+    "editor.tabSize": 2,
+    "files.trimTrailingWhitespace": true,
+    "editor.renderWhitespace": "none",
+    "editor.renderIndentGuides": true,
+
+    "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
+    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": false,
+
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/bower_components": true
+    },
+    "workbench.iconTheme": "file-icons",
+    "window.zoomLevel": -1,
+    "workbench.colorTheme": "Starry Night",
+
+    "editor.cursorBlinking": "solid",
+    "workbench.quickOpen.closeOnFocusLost": false,
+
+    "vim.leader": ",",
+    "vim.useSystemClipboard": true,
+    "vim.useSolidBlockCursor": true,
+    "vim.enableNeovim": true,
+    "vim.neovimPath": "/usr/local/bin/nvim",
+    "vim.disableAnnoyingNeovimMessage": true
+}

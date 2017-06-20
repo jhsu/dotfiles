@@ -1,0 +1,36 @@
+// Place your key bindings in this file to overwrite the defaults
+[
+  {
+    "key": "ctrl+shift+alt+f",
+    "command": "eslint.fixAllProblems",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "cmd+\\",
+    "command": "workbench.action.toggleSidebarVisibility"
+  },
+  {
+    "key": "ctrl+w s",
+    "command": "workbench.action.splitEditor"
+  },
+  {
+    "key": "cmd+\\",
+    "command": "-workbench.action.splitEditor"
+  },
+  {
+    "key": "ctrl+alt+f",
+    "command": "prettier-eslint.format"
+  },
+  {
+    "key": "alt+cmd+p",
+    "command": "-prettier-eslint.format"
+  },
+  {
+    "key": "ctrl+[",
+    "command": "editor.action.previewDeclaration"
+  },
+  {
+    "key": "ctrl+]",
+    "command": "editor.action.goToDeclaration"
+  }
+]
