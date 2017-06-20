@@ -1,9 +1,12 @@
 --nogroup
+--smart-case
 --known-types
 --ignore-file=ext:log,svg
 --ignore-dir=tmp
 --ignore-dir=coverage
 --ignore-dir=doc
+--type-add
+  js:ext:jsx
 --type-add
   ruby:ext:ru
 --type-add
