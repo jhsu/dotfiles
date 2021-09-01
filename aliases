@@ -45,5 +45,7 @@ alias grm="git status | grep deleted | awk '{print \$3}' | xargs git rm"
 alias gl='git log --graph --pretty=format:"%Cred%h%Creset . %an: %""s %Cgreen(%cr)%Creset" --abbrev-commit --date=relative'
 alias push="git push"
 
+alias browse="git config remote.origin.url | sed -e's/:/\//' -e's/git@/https:\/\//' -e's/\.git$//' | xargs open"
+
 # define
 dict() { curl -s dict://dict.org/d:"$1" | perl -ne 's/\r//; last if /^\.$/; print if /^151/../^250/'; }
