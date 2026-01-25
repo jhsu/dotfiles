@@ -15,8 +15,14 @@ const CONFIG_DIRS_TO_LINK = ["niri", "noctalia"];
 
 const HOMEBREW_PACKAGES = ["vim", "postgresql", "weechat", "ffmpeg", "imagemagick"];
 
+let DRY_RUN = false;
+
 function log(msg: string) {
   console.log(`- ${msg}`);
+}
+
+function dryLog(msg: string) {
+  console.log(`  [dry-run] would ${msg}`);
 }
 
 function linkFile(file: string) {
@@ -38,6 +44,11 @@ function linkFile(file: string) {
     return;
   }
 
+  if (DRY_RUN) {
+    dryLog(`link ~/.${file} -> ${source}`);
+    return;
+  }
+
   symlinkSync(source, target);
   log(`linked ~/.${file}`);
 }
@@ -54,8 +65,12 @@ function linkConfigDir(dir: string) {
 
   // Ensure ~/.config exists
   if (!existsSync(configHome)) {
-    mkdirSync(configHome, { recursive: true });
-    log(`created ~/.config`);
+    if (DRY_RUN) {
+      dryLog(`create ~/.config`);
+    } else {
+      mkdirSync(configHome, { recursive: true });
+      log(`created ~/.config`);
+    }
   }
 
   if (existsSync(target)) {
@@ -65,6 +80,11 @@ function linkConfigDir(dir: string) {
       return;
     }
     log(`~/.config/${dir} exists and is not a symlink, skipping (backup manually if needed)`);
+    return;
+  }
+
+  if (DRY_RUN) {
+    dryLog(`link ~/.config/${dir} -> ${source}`);
     return;
   }
 
@@ -94,10 +114,16 @@ async function setupOsx() {
   }
 
   for (const pkg of HOMEBREW_PACKAGES) {
-    log(`installing ${pkg}...`);
-    await $`brew install ${pkg}`.quiet();
+    if (DRY_RUN) {
+      dryLog(`install ${pkg}`);
+    } else {
+      log(`installing ${pkg}...`);
+      await $`brew install ${pkg}`.quiet();
+    }
   }
-  log("Homebrew packages installed");
+  if (!DRY_RUN) {
+    log("Homebrew packages installed");
+  }
 }
 
 async function setupSourceRc() {
@@ -121,6 +147,11 @@ async function setupSourceRc() {
       continue;
     }
 
+    if (DRY_RUN) {
+      dryLog(`append "source ${CONFIG_DIR}/${file}" to ${rcFile}`);
+      continue;
+    }
+
     appendFileSync(rcFile, `\n${configLine}\n`);
     log(`added source line to ${rcFile}`);
   }
@@ -128,7 +159,7 @@ async function setupSourceRc() {
 
 function printUsage() {
   console.log(`
-Usage: bun scripts/setup.ts [task]
+Usage: bun scripts/setup.ts [task] [options]
 
 Tasks:
   (none)      Run all setup tasks
@@ -136,10 +167,14 @@ Tasks:
   osx         Install Homebrew packages (macOS only)
   source-rc   Source rc files into existing configs
 
+Options:
+  --dry       Show what would be done without making changes
+
 Examples:
   bun scripts/setup.ts
+  bun scripts/setup.ts --dry
   bun scripts/setup.ts symlink
-  bun scripts/setup.ts osx
+  bun scripts/setup.ts symlink --dry
 `);
 }
 
@@ -151,7 +186,19 @@ async function runAll() {
 }
 
 // Main
-const task = process.argv[2];
+const args = process.argv.slice(2);
+DRY_RUN = args.includes("--dry");
+const showHelp = args.includes("--help") || args.includes("-h") || args.includes("help");
+const task = args.find(arg => !arg.startsWith("-") && arg !== "help");
+
+if (showHelp) {
+  printUsage();
+  process.exit(0);
+}
+
+if (DRY_RUN) {
+  console.log("Running in dry-run mode (no changes will be made)\n");
+}
 
 switch (task) {
   case "symlink":
@@ -163,16 +210,11 @@ switch (task) {
   case "source-rc":
     await setupSourceRc();
     break;
-  case "help":
-  case "--help":
-  case "-h":
-    printUsage();
+  case undefined:
+    await runAll();
     break;
   default:
-    if (task) {
-      console.error(`Unknown task: ${task}`);
-      printUsage();
-      process.exit(1);
-    }
-    await runAll();
+    console.error(`Unknown task: ${task}`);
+    printUsage();
+    process.exit(1);
 }
