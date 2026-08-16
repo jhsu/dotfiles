@@ -28,7 +28,7 @@
 	cm = commit -S
 	ci = commit
 	br = branch
-	brr = for-each-ref --count=5 --sort=-committerdate refs/heads/ --format='%(refname:short)'
+	brr = for-each-ref --count=10 --sort=-committerdate refs/heads/ --format='%(refname:short)'
 	co = checkout
 	df = diff
 	lg = log -p
@@ -53,6 +53,7 @@
 	human = name-rev --name-only --refs=refs/heads/*
 	edit = !$EDITOR $(git status --short | awk '$1 ~ /^M$/ {print $2}' )
 	medit = !$EDITOR $(git diff --name-only master)
+	wt = !git worktree add ~/code/worktrees/$1 develop && cd ~/code/worktrees/$1 && git checkout -b $1
 [core]
 	excludesfile = /home/jshsu/.gitignore
 	editor = vim
@@ -66,6 +67,7 @@
 	tool = Kaleidoscope
 [push]
 	default = current # only push to branch of same name
+	autoSetupRemote = true
 [difftool]
 	prompt = false
 [difftool "Kaleidoscope"]
